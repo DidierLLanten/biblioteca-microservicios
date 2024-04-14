@@ -96,3 +96,17 @@ services:
       spring.datasource.username: root
       spring.datasource.password: root1234
       eureka.client.service-url.defaultZone: http://eureka-server:8761/eureka
+
+  gateway:
+    image: bib_gateway
+    build: ./gateway
+    restart: always
+    depends_on:
+      - eureka-server
+      - libros
+      - clientes
+      - prestamos
+    environment:
+      eureka.client.service-url.defaultZone: http://eureka-server:8761/eureka
+    ports:
+    - "8080:8080"
